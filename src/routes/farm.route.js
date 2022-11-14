@@ -1,17 +1,49 @@
-import { request, response, Router } from "express";
-import { methods as farmController } from "../controllers/farm.controller";
+import {Router } from "express";
+const { check } = require('express-validator');
+
+const {
+    getFarm,
+    getOneFarm,
+    addFarm,
+    updateFarm,
+    deleteFarm
+
+} = require ("../controllers/farm.controller")
 
 const router = Router();
 
-router.get("/", farmController.getFarm);
+router.get("/", getFarm);
 
-router.get("/:id", farmController.getOneFarm);
+router.get("/:id", [
+    check('id', 'No es un ID válido').isNumeric(),
+], getOneFarm);
 
-router.post("/", farmController.addFarm);
+router.post("/", [
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('ciudad', 'La ciudad es obligatoria').isNumeric(),
+    check('direccion', 'La direccion es obligatoria').not().isEmpty(),
+    check('celular', 'El celular es obligatorio').not().isEmpty(),
+    check('tipo_finca', 'El tipo es obligatorio').isNumeric(),
+    check('cuenta', 'La cuenta es obligatoria').not().isEmpty(),
+    check('oficina', 'La oficina es obligatoria').not().isEmpty(),
 
-router.put("/:id", farmController.updateFarm);
+],addFarm);
 
-router.delete("/:id", farmController.deleteFarm);
+router.put("/:id",  [
+    check('id', 'No es un ID válido').isNumeric(),
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('ciudad', 'La ciudad es obligatoria').isNumeric(),
+    check('direccion', 'La direccion es obligatoria').not().isEmpty(),
+    check('celular', 'El celular es obligatorio').not().isEmpty(),
+    check('tipo_finca', 'El tipo es obligatorio').isNumeric(),
+    check('cuenta', 'La cuenta es obligatoria').not().isEmpty(),
+    check('oficina', 'La oficina es obligatoria').not().isEmpty(),
+
+],updateFarm);
+
+router.delete("/:id",[
+    check('id', 'No es un ID válido').isNumeric(),
+], deleteFarm);
 
 
 export default router;

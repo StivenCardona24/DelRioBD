@@ -15,6 +15,10 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 // Routes 
+app.get("/", (req, res) => {
+    res.send('<h1>Hola desde land page!</h1>');
+});
+
 app.use("/finca", fincaRoutes);
 
 export default app;

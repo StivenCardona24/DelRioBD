@@ -100,7 +100,7 @@ const deleteFarm = async (req, res) =>{
     
 };
 
-export const methods = {
+module.exports = {
     getFarm,
     getOneFarm,
     addFarm,
