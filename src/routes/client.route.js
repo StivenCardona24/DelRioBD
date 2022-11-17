@@ -1,5 +1,5 @@
 import {Router } from "express";
-const { check } = require('express-valcedulaator');
+const { check } = require('express-validator');
 
 const {
     getFarm,

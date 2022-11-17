@@ -21,7 +21,7 @@ import oficinaRoutes from "./routes/ofice.route";
 
 
 
-/*
+
 import clienteRoutes from "./routes/client.route";
 import empleadoRoutes from "./routes/employee.route";
 import detalle_ventaRoutes from "./routes/sale_detail.route";
@@ -34,7 +34,7 @@ import compraRoutes from "./routes/shopping.route";
 
 
 
-*/
+
 
 const app = express();
 
@@ -60,26 +60,26 @@ app.use("/detalle_producto", detalle_productoRoutes);
 app.use("/compra_producto", compra_productoRoutes);
 app.use("/producto", productoRoutes);
 app.use("/proveedor", proveedorRoutes);
-app.use("/ detalle_compra", detalle_compraRoutes);
+app.use("/detalle_compra", detalle_compraRoutes);
 app.use("/tipo_entrega", tipo_entregaRoutes);
 app.use("/tipo_finca", tipo_fincaRoutes);
 app.use("/usuario", usuarioRoutes);
 app.use("/oficina", oficinaRoutes);
 
 
-/*
+
 
 app.use("/detalle_venta", detalle_ventaRoutes);
-app.use("/cliente", clienteRoutes);
-app.use("/empleado", empleadoRoutes);
+// app.use("/cliente", clienteRoutes);
+// app.use("/empleado", empleadoRoutes);
 
-app.use("/venta", ventaRoutes);
-app.use("/compra", compraRoutes);
-
-
+// app.use("/venta", ventaRoutes);
+// app.use("/compra", compraRoutes);
 
 
 
-*/
+
+
+
 
 export default app;
