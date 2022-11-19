@@ -2,38 +2,38 @@ import {Router } from "express";
 const { check } = require('express-validator');
 
 const {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getCity,
+    getOneCity,
+    addCity,
+    updateCity,
+    deleteCity
 
 } = require ("../controllers/city.controller")
 
 const router = Router();
 
-router.get("/", getFarm);
+router.get("/", getCity);
 
 router.get("/:id", [
     check('id', 'No es un ID válido').isNumeric(),
-], getOneFarm);
+], getOneCity);
 
 router.post("/", [
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-    check('departamento', 'La departamento es obligatoria').isNumeric(),
+    check('departamento', 'La departamento es obligatorio').isNumeric(),
   
-],addFarm);
+],addCity);
 
 router.put("/:id",  [
     check('id', 'No es un ID válido').isNumeric(),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-    check('departamento', 'La departamento es obligatoria').isNumeric(),
+    check('departamento', 'La departamento es obligatorio').isNumeric(),
     
-],updateFarm);
+],updateCity);
 
 router.delete("/:id",[
     check('id', 'No es un ID válido').isNumeric(),
-], deleteFarm);
+], deleteCity);
 
 
 export default router;

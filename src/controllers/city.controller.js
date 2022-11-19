@@ -1,6 +1,6 @@
 import { getConnection } from "../database/database";
 
-const getFarm = async (req, res) =>{
+const getCity = async (req, res) =>{
     const connection = await getConnection();
     const sql = 'SELECT * FROM ciudades';
     await connection.query(sql, (error, results)=>{
@@ -17,7 +17,7 @@ const getFarm = async (req, res) =>{
     });
     
 };
-const getOneFarm = async (req, res) =>{
+const getOneCity = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const sql = `SELECT * FROM ciudades WHERE id = ${id}`;
@@ -36,16 +36,14 @@ const getOneFarm = async (req, res) =>{
     
 };
 
-const addFarm = async (req, res) =>{
+const addCity = async (req, res) =>{
     const connection = await getConnection();
-    const {nombre, ciudad, direccion, celular, tipo_finca, cuenta, oficina } = req.body;
-
-    //const sql = `INSERT INTO ciudades (nombre, departamento) VALUES ( "${nombre}", ${departamento})`;
+    const {nombre, departamento} = req.body;
     const sql = "INSERT INTO ciudades SET ?";
-    const farm = {
+    const city = {
         nombre, departamento
     }
-    await connection.query(sql,farm, (error, results)=>{
+    await connection.query(sql,city, (error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
@@ -58,18 +56,18 @@ const addFarm = async (req, res) =>{
 };
 
 
-const updateFarm = async (req, res) =>{
+const updateCity = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const {nombre, departamento } = req.body;
 
-    const farm = {
+    const city = {
         nombre, departamento
     }
     //const sql = `UPDATE ciudades SET nombre ="${nombre}", departamento = ${departamento}  WHERE id = ${id}, 
     const sql = "UPDATE ciudades SET ? WHERE id = ?"
 
-    await connection.query(sql, [farm, id] ,(error, results)=>{
+    await connection.query(sql, [city, id] ,(error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
@@ -82,7 +80,7 @@ const updateFarm = async (req, res) =>{
 };
 
 
-const deleteFarm = async (req, res) =>{
+const deleteCity = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const sql = `DELETE FROM ciudades WHERE id = ${id}`;
@@ -99,10 +97,10 @@ const deleteFarm = async (req, res) =>{
 };
 
 module.exports = {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getCity,
+    getOneCity,
+    addCity,
+    updateCity,
+    deleteCity
 
 }
