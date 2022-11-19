@@ -1,6 +1,6 @@
 import { getConnection } from "../database/database";
 
-const getFarm = async (req, res) =>{
+const getDependence = async (req, res) =>{
     const connection = await getConnection();
     const sql = 'SELECT * FROM dependencia';
     await connection.query(sql, (error, results)=>{
@@ -17,7 +17,7 @@ const getFarm = async (req, res) =>{
     });
     
 };
-const getOneFarm = async (req, res) =>{
+const getOneDependence = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const sql = `SELECT * FROM dependencia WHERE id = ${id}`;
@@ -36,16 +36,16 @@ const getOneFarm = async (req, res) =>{
     
 };
 
-const addFarm = async (req, res) =>{
+const addDependence = async (req, res) =>{
     const connection = await getConnection();
     const {nombre } = req.body;
 
     //const sql = `INSERT INTO dependencia (nombre) VALUES ( "${nombre}")`;
     const sql = "INSERT INTO dependencia SET ?";
-    const farm = {
+    const Dependence  = {
         nombre
     }
-    await connection.query(sql,farm, (error, results)=>{
+    await connection.query(sql,Dependence, (error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
@@ -58,18 +58,18 @@ const addFarm = async (req, res) =>{
 };
 
 
-const updateFarm = async (req, res) =>{
+const updateDependence  = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const {nombre } = req.body;
 
-    const farm = {
+    const Dependence  = {
         nombre
     }
     //const sql = `UPDATE dependencia SET nombre ="${nombre}"`;
     const sql = "UPDATE dependencia SET ? WHERE id = ?"
 
-    await connection.query(sql, [farm, id] ,(error, results)=>{
+    await connection.query(sql, [Dependence, id] ,(error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
@@ -82,7 +82,7 @@ const updateFarm = async (req, res) =>{
 };
 
 
-const deleteFarm = async (req, res) =>{
+const deleteDependence = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const sql = `DELETE FROM dependencia WHERE id = ${id}`;
@@ -99,10 +99,9 @@ const deleteFarm = async (req, res) =>{
 };
 
 module.exports = {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
-
+    getDependence,
+    getOneDependence,
+    addDependence,
+    updateDependence,
+    deleteDependence
 }

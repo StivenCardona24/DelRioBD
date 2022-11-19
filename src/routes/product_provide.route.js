@@ -2,27 +2,27 @@ import {Router } from "express";
 const { check } = require('express-validator');
 
 const {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getProductProvide,
+    getOneProductProvide,
+    addProductProvide,
+    updateProductProvide,
+    deleteProductProvide
 
-} = require ("../controllers/product_detail.controller")
+} = require ("../controllers/product_provide.controller")
 
 const router = Router();
 
-router.get("/", getFarm);
+router.get("/", getProductProvide);
 
 router.get("/:id", [
     check('id', 'No es un ID válido').isNumeric(),
-], getOneFarm);
+], getOneProductProvide);
 
 router.post("/", [
     check('producto', 'El producto es obligatorio').isNumeric(),
     check('cliente', 'La cliente es obligatoria').isNumeric(),
    
-],addFarm);
+],addProductProvide);
 
 router.put("/:id",  [
     check('id', 'No es un ID válido').isNumeric(),
@@ -30,11 +30,11 @@ router.put("/:id",  [
     check('cliente', 'La cliente es obligatoria').isNumeric(),
 
 
-],updateFarm);
+],updateProductProvide);
 
 router.delete("/:id",[
     check('id', 'No es un ID válido').isNumeric(),
-], deleteFarm);
+], deleteProductProvide);
 
 
 export default router;

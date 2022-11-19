@@ -1,8 +1,8 @@
 import { getConnection } from "../database/database";
 
-const getFarm = async (req, res) =>{
+const getProductProvide = async (req, res) =>{
     const connection = await getConnection();
-    const sql = 'SELECT * FROM detalle_producto';
+    const sql = 'SELECT * FROM productos_proveedor';
     await connection.query(sql, (error, results)=>{
         if(error){
             res.status(500);
@@ -17,10 +17,10 @@ const getFarm = async (req, res) =>{
     });
     
 };
-const getOneFarm = async (req, res) =>{
+const getOneProductProvide = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
-    const sql = `SELECT * FROM detalle_producto WHERE id = ${id}`;
+    const sql = `SELECT * FROM productos_proveedor WHERE id = ${id}`;
     await connection.query(sql, (error, result)=>{
         if(error){
             res.status(500);
@@ -30,79 +30,79 @@ const getOneFarm = async (req, res) =>{
             res.status(200).json(result);
         }
         else{
-            res.send(`No hay una detalle_producto con el id ${id}`)
+            res.send(`No hay productos del proveedor con el id ${id}`)
         }
     });
     
 };
 
-const addFarm = async (req, res) =>{
+const addProductProvide= async (req, res) =>{
     const connection = await getConnection();
-    const {producto, cliente } = req.body;
+    const {nombre, descripcion, precio, proveedor } = req.body;
 
     //const sql = `INSERT INTO detalle_producto (producto, cliente) VALUES ( "${producto}", ${cliente} )`;
-    const sql = "INSERT INTO detalle_producto SET ?";
-    const farm = {
-        producto, cliente
+    const sql = "INSERT INTO productos_proveedor  SET ?";
+    const product = {
+        nombre, descripcion, precio, proveedor
     }
-    await connection.query(sql,farm, (error, results)=>{
+    await connection.query(sql,product, (error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
         }
         else{
-            res.status(200).json({message: "detalle_producto creada"})
+            res.status(200).json({message: "Producto del proveedor creado"})
         }
     });
     
 };
 
 
-const updateFarm = async (req, res) =>{
+const updateProductProvide = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
-    const {producto, cliente } = req.body;
+    const {nombre, descripcion, precio, proveedor } = req.body;
 
-    const farm = {
-        producto, cliente
+    const product = {
+        nombre, descripcion, precio, proveedor 
     }
     //const sql = `UPDATE detalle_producto SET producto ="${producto}" WHERE id = ${id}, cliente = ${cliente} WHERE id = ${id}`;
-    const sql = "UPDATE detalle_producto SET ? WHERE id = ?"
+    const sql = "UPDATE productos_proveedor  SET ? WHERE id = ?"
 
-    await connection.query(sql, [farm, id] ,(error, results)=>{
+    await connection.query(sql, [product, id] ,(error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
         }
         else{
-            res.status(200).json({message: "detalle_producto Actualizada"})
+            res.status(200).json({message: "Producto del proveedor Actualizado"})
         }
     });
     
 };
 
 
-const deleteFarm = async (req, res) =>{
+const deleteProductProvide = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
-    const sql = `DELETE FROM detalle_producto WHERE id = ${id}`;
+    const sql = `DELETE FROM productos_proveedor  WHERE id = ${id}`;
     await connection.query(sql, (error, result)=>{
         if(error){
             res.status(500);
             res.send(error);
         }
         else{
-            res.send(`detalle_producto con ${id} eliminada`)
+            res.send(`Producto del proveedor con ${id} eliminado`)
         }
     });
     
 };
 
 module.exports = {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getProductProvide,
+    getOneProductProvide,
+    addProductProvide,
+    updateProductProvide,
+    deleteProductProvide
 
 }

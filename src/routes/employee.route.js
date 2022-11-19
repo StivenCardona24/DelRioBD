@@ -2,21 +2,21 @@ import {Router } from "express";
 const { check } = require('express-validator');
 
 const {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getEmployee,
+    getOneEmployee,
+    addEmployee,
+    updateEmployee,
+    deleteEmployee
 
 } = require ("../controllers/employee.controller")
 
 const router = Router();
 
-router.get("/", getFarm);
+router.get("/", getEmployee);
 
 router.get("/:cedula", [
     check('cedula', 'No es un cedula válcedulao').isNumeric(),
-], getOneFarm);
+], getOneEmployee);
 
 router.post("/", [
     check('primer_nombre', 'El primer_nombre es obligatorio').not().isEmpty(),
@@ -29,8 +29,7 @@ router.post("/", [
     check('fecha_nacimiento', 'La fecha_nacimiento es obligatoria').not().isEmpty(),
     check('dependencia', 'La dependencia es obligatoria').isNumeric(),
     check('oficina', 'La oficina es obligatoria').isNumeric(),
-    check('finca', 'La finca es obligatoria').isNumeric(),
-],addFarm);
+],addEmployee);
 
 router.put("/:cedula",  [
     check('cedula', 'No es un cedula válcedulao').isNumeric(),
@@ -44,13 +43,12 @@ router.put("/:cedula",  [
     check('fecha_nacimiento', 'La fecha_nacimiento es obligatoria').not().isEmpty(),
     check('dependencia', 'La dependencia es obligatoria').isNumeric(),
     check('oficina', 'La oficina es obligatoria').isNumeric(),
-    check('finca', 'La finca es obligatoria').isNumeric(),
 
-],updateFarm);
+],updateEmployee);
 
 router.delete("/:cedula",[
     check('cedula', 'No es un cedula válcedulao').isNumeric(),
-], deleteFarm);
+], deleteEmployee);
 
 
 export default router;

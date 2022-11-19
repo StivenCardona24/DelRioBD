@@ -2,45 +2,46 @@ import {Router } from "express";
 const { check } = require('express-validator');
 
 const {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getClient,
+    getOneClient,
+    addClient,
+    updateClient,
+    deleteClient
 
 } = require ("../controllers/client.controller")
 
 const router = Router();
 
-router.get("/", getFarm);
+router.get("/", getClient);
 
 router.get("/:cedula", [
-    check('cedula', 'No es un cedula válcedulao').isNumeric(),
-], getOneFarm);
+    check('cedula', 'No es una cedula valida').isNumeric(),
+], getOneClient);
 
 router.post("/", [
+    check('cedula', 'No es una cedula valida').isNumeric(),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('celular', 'La celular es obligatoria').not().isEmpty(),
-    check('cantidad_compras', 'La cantidad_compras es obligatoria').isNumeric(),
-    check('correo_electronico', 'La correo_electronico es obligatoria').not().isEmpty(),
+    check('cantidad_compras', 'Ingrese un valor valido').isNumeric(),
+    check('correo', 'El correo es obligatoria').not().isEmpty(),
     check('estado', 'El estado es obligatorio').not().isEmpty(),
    
-],addFarm);
+],addClient);
 
 router.put("/:cedula",  [
-    check('cedula', 'No es un cedula válcedulao').isNumeric(),
+    check('cedula', 'No es una cedula valida').isNumeric(),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('celular', 'La celular es obligatoria').not().isEmpty(),
-    check('cantidad_compras', 'La cantidad_compras es obligatoria').isNumeric(),
-    check('correo_electronico', 'La correo_electronico es obligatoria').not().isEmpty(),
+    check('cantidad_compras', 'Ingrese un valor valido').isNumeric(),
+    check('correo', 'El correo es obligatoria').not().isEmpty(),
     check('estado', 'El estado es obligatorio').not().isEmpty(),
    
 
-],updateFarm);
+],updateClient);
 
 router.delete("/:cedula",[
-    check('cedula', 'No es un cedula válcedulao').isNumeric(),
-], deleteFarm);
+    check('cedula', 'No es una cedula valida').isNumeric(),
+], deleteClient);
 
 
 export default router;

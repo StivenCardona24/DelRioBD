@@ -1,6 +1,6 @@
 import { getConnection } from "../database/database";
 
-const getFarm = async (req, res) =>{
+const getEmployee = async (req, res) =>{
     const connection = await getConnection();
     const sql = 'SELECT * FROM empleado';
     await connection.query(sql, (error, results)=>{
@@ -17,7 +17,7 @@ const getFarm = async (req, res) =>{
     });
     
 };
-const getOneFarm = async (req, res) =>{
+const getOneEmployee = async (req, res) =>{
     const connection = await getConnection();
     const { cedula } = req.params;
     const sql = `SELECT * FROM empleado WHERE cedula = ${cedula}`;
@@ -36,16 +36,16 @@ const getOneFarm = async (req, res) =>{
     
 };
 
-const addFarm = async (req, res) =>{
+const addEmployee = async (req, res) =>{
     const connection = await getConnection();
-    const {primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina, finca } = req.body;
+    const {primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina } = req.body;
 
     //const sql = `INSERT INTO empleado (primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina, finca) VALUES ( "${primer_nombre}", ${segundo_nombre}, "${primer_apellido}", "${segundo_apelido}", "${estudios}", "${sueldo}", "${cargo}", "${fecha_nacimiento}", "${dependencia}", "${oficina}", "${finca}" )`;
     const sql = "INSERT INTO empleado SET ?";
-    const farm = {
-        primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina, finca
+    const employee = {
+        primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina
     }
-    await connection.query(sql,farm, (error, results)=>{
+    await connection.query(sql,employee, (error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
@@ -58,20 +58,17 @@ const addFarm = async (req, res) =>{
 };
 
 
-const updateFarm = async (req, res) =>{
+const updateEmployee = async (req, res) =>{
     const connection = await getConnection();
     const { cedula } = req.params;
-    const {primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina, finca } = req.body;
+    const {primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina } = req.body;
 
-    const farm = {
-        primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina, finca
+    const employee = {
+        primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina
     }
-    //const sql = `UPDATE empleado SET primer_nombre ="${primer_nombre}", segundo_nombre = ${segundo_nombre}, primer_apellido = "${primer_apellido}",
-       //         segundo_apelido = "${segundo_apelido}", estudios = ${estudios}, sueldo = "${sueldo}",
-         //       cargo= "${cargo}", fecha_nacimiento = "${fecha_nacimiento}", dependencia = "${dependencia}", oficina = "${oficina}", finca = ${ ${finca} WHERE cedula = ${cedula}`;
     const sql = "UPDATE empleado SET ? WHERE cedula = ?"
 
-    await connection.query(sql, [farm, cedula] ,(error, results)=>{
+    await connection.query(sql, [employee, cedula] ,(error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
@@ -84,7 +81,7 @@ const updateFarm = async (req, res) =>{
 };
 
 
-const deleteFarm = async (req, res) =>{
+const deleteEmployee = async (req, res) =>{
     const connection = await getConnection();
     const { cedula } = req.params;
     const sql = `DELETE FROM empleado WHERE cedula = ${cedula}`;
@@ -101,10 +98,10 @@ const deleteFarm = async (req, res) =>{
 };
 
 module.exports = {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getEmployee,
+    getOneEmployee,
+    addEmployee,
+    updateEmployee,
+    deleteEmployee
 
 }

@@ -1,6 +1,6 @@
 import { getConnection } from "../database/database";
 
-const getFarm = async (req, res) =>{
+const getClient = async (req, res) =>{
     const connection = await getConnection();
     const sql = 'SELECT * FROM cliente';
     await connection.query(sql, (error, results)=>{
@@ -17,7 +17,7 @@ const getFarm = async (req, res) =>{
     });
     
 };
-const getOneFarm = async (req, res) =>{
+const getOneClient = async (req, res) =>{
     const connection = await getConnection();
     const { cedula } = req.params;
     const sql = `SELECT * FROM cliente WHERE cedula = ${cedula}`;
@@ -30,60 +30,58 @@ const getOneFarm = async (req, res) =>{
             res.status(200).json(result);
         }
         else{
-            res.send(`No hay una cliente con el cedula ${cedula}`)
+            res.send(`No hay una cliente con la cedula ${cedula}`)
         }
     });
     
 };
 
-const addFarm = async (req, res) =>{
+const addClient = async (req, res) =>{
     const connection = await getConnection();
-    const {nombre, celular, cantidad_compras, estado } = req.body;
+    const {cedula, nombre, celular, correo, cantidad_compras, estado } = req.body;
 
-    //const sql = `INSERT INTO cliente (nombre, celular, cantidad_compras, estado VALUES ( "${nombre}", ${estado}, "${cantidad_compras}", "${estado}" )`;
     const sql = "INSERT INTO cliente SET ?";
-    const farm = {
-        nombre, celular, cantidad_compras, estado
+    const client = {
+        cedula, nombre, celular, correo, cantidad_compras, estado
     }
-    await connection.query(sql,farm, (error, results)=>{
+    await connection.query(sql,client, (error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
         }
         else{
-            res.status(200).json({message: "cliente creada"})
+            res.status(200).json({message: "cliente creado"})
         }
     });
     
 };
 
 
-const updateFarm = async (req, res) =>{
+const updateClient = async (req, res) =>{
     const connection = await getConnection();
     const { cedula } = req.params;
-    const {nombre, celular, cantidad_compras, estado } = req.body;
+    const {nombre, celular, cantidad_compras, correo, estado } = req.body;
 
-    const farm = {
-        nombre, celular, cantidad_compras, estado
+    const client = {
+        nombre, celular, cantidad_compras, correo, estado
     }
-    //const sql = `UPDATE cliente SET nombre ="${nombre}", celular = ${celular}, cantidad_compras = "${cantidad_compras}",
-       //         estado = "${estado}", WHERE cedula = ${cedula}`;
+   
     const sql = "UPDATE cliente SET ? WHERE cedula = ?"
 
-    await connection.query(sql, [farm, cedula] ,(error, results)=>{
+    await connection.query(sql, [client, cedula] ,(error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
         }
         else{
-            res.status(200).json({message: "cliente Actualizada"})
+            res.status(200).json({message: "cliente Actualizado"})
         }
     });
     
 };
 
 
-const deleteFarm = async (req, res) =>{
+const deleteClient = async (req, res) =>{
     const connection = await getConnection();
     const { cedula } = req.params;
     const sql = `DELETE FROM cliente WHERE cedula = ${cedula}`;
@@ -93,17 +91,17 @@ const deleteFarm = async (req, res) =>{
             res.send(error);
         }
         else{
-            res.send(`cliente con ${cedula} eliminada`)
+            res.send(`cliente con ${cedula} eliminado`)
         }
     });
     
 };
 
 module.exports = {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getClient,
+    getOneClient,
+    addClient,
+    updateClient,
+    deleteClient
 
 }

@@ -15,7 +15,6 @@ const getCity = async (req, res) =>{
             res.send("Not results")
         }
     });
-    
 };
 const getOneCity = async (req, res) =>{
     const connection = await getConnection();
