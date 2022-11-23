@@ -22,8 +22,9 @@ router.post("/", [
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('precio', 'La precio es obligatoria').isDecimal(),
     check('catidad', 'La catidad es obligatoria').not().isEmpty(),
-    check('decripcion', 'El decripcion es obligatorio').not().isEmpty(),
+    check('descripcion', 'La descripcion es obligatoria').not().isEmpty(),
     check('tipo', 'El tipo es obligatorio').isNumeric(),
+    check('finca', 'Elntipo de finca es incorrecto').isNumeric(),
  
 
 ],addProduct);
@@ -35,6 +36,8 @@ router.put("/:id",  [
     check('catidad', 'La catidad es obligatoria').not().isEmpty(),
     check('decripcion', 'El decripcion es obligatorio').not().isEmpty(),
     check('tipo', 'El tipo es obligatorio').isNumeric(),
+    check('finca', 'Elntipo de finca es incorrecto').isNumeric(),
+
     
 
 ],updateProduct);

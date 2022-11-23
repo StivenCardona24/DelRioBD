@@ -38,12 +38,12 @@ const getOneProduct = async (req, res) =>{
 
 const addProduct = async (req, res) =>{
     const connection = await getConnection();
-    const {nombre, ciudad, direccion, celular, tipo_producto, cuenta, oficina } = req.body;
+    const {nombre, precio, cantidad, descripcion, tipo, finca } = req.body;
 
     //const sql = `INSERT INTO producto (nombre, ciudad, direccion, celular, tipo_producto, cuenta, oficina) VALUES ( "${nombre}", ${ciudad}, "${direccion}", "${celular}", ${tipo_producto}, "${cuenta}", ${oficina} )`;
     const sql = "INSERT INTO producto SET ?";
     const product = {
-        nombre, ciudad, direccion, celular, tipo_producto, cuenta, oficina
+        nombre, precio, cantidad, descripcion, tipo, finca
     }
     await connection.query(sql,product, (error, results)=>{
         if(error){
@@ -61,10 +61,10 @@ const addProduct = async (req, res) =>{
 const updateProduct = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
-    const {nombre, ciudad, direccion, celular, tipo_producto, cuenta, oficina } = req.body;
+    const {nombre, precio, cantidad, descripcion, tipo, finca } = req.body;
 
     const product = {
-        nombre, ciudad, direccion, celular, tipo_producto, cuenta, oficina
+        nombre, precio, cantidad, descripcion, tipo, finca
     }
     //const sql = `UPDATE producto SET nombre ="${nombre}", ciudad = ${ciudad}, direccion = "${direccion}",
        //         celular = "${celular}", tipo_producto = ${tipo_producto}, cuenta = "${cuenta}",
