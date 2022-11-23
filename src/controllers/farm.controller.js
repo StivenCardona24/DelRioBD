@@ -41,7 +41,7 @@ const addFarm = async (req, res) =>{
     const {nombre, ciudad, direccion, celular, tipo_finca, cuenta, oficina } = req.body;
 
     //const sql = `INSERT INTO fincas (nombre, ciudad, direccion, celular, tipo_finca, cuenta, oficina) VALUES ( "${nombre}", ${ciudad}, "${direccion}", "${celular}", ${tipo_finca}, "${cuenta}", ${oficina} )`;
-    const sql = "INSERT INTO fincas SET ?";
+    const sql = "INSERT INTO fincas SET ?" ;  
     const farm = {
         nombre, ciudad, direccion, celular, tipo_finca, cuenta, oficina
     }
@@ -108,3 +108,6 @@ module.exports = {
     deleteFarm
 
 }
+
+
+

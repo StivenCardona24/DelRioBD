@@ -1,6 +1,6 @@
 import { getConnection } from "../database/database";
 
-const getFarm = async (req, res) =>{
+const getProvide = async (req, res) =>{
     const connection = await getConnection();
     const sql = 'SELECT * FROM proveedor';
     await connection.query(sql, (error, results)=>{
@@ -17,7 +17,7 @@ const getFarm = async (req, res) =>{
     });
     
 };
-const getOneFarm = async (req, res) =>{
+const getOneProvide = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const sql = `SELECT * FROM proveedor WHERE id = ${id}`;
@@ -30,59 +30,59 @@ const getOneFarm = async (req, res) =>{
             res.status(200).json(result);
         }
         else{
-            res.send(`No hay una proveedor con el id ${id}`)
+            res.send(`No hay un proveedor con el id ${id}`)
         }
     });
     
 };
 
-const addFarm = async (req, res) =>{
+const addProvide = async (req, res) =>{
     const connection = await getConnection();
-    const {nombre, producto } = req.body;
+    const {nombre } = req.body;
 
     //const sql = `INSERT INTO proveedor (nombre, producto) VALUES ( "${nombre}", ${producto})`;
     const sql = "INSERT INTO proveedor SET ?";
-    const farm = {
-        nombre, producto
+    const provide = {
+        nombre
     }
-    await connection.query(sql,farm, (error, results)=>{
+    await connection.query(sql,provide, (error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
         }
         else{
-            res.status(200).json({message: "proveedor creada"})
+            res.status(200).json({message: "proveedor creado"})
         }
     });
     
 };
 
 
-const updateFarm = async (req, res) =>{
+const updateProvide = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
-    const {nombre, producto } = req.body;
+    const {nombre } = req.body;
 
-    const farm = {
-        nombre, producto
+    const provide = {
+        nombre
     }
     //const sql = `UPDATE proveedor SET nombre ="${nombre}", ciudad = ${producto}`;
     const sql = "UPDATE proveedor SET ? WHERE id = ?"
 
-    await connection.query(sql, [farm, id] ,(error, results)=>{
+    await connection.query(sql, [provide, id] ,(error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
         }
         else{
-            res.status(200).json({message: "proveedor Actualizada"})
+            res.status(200).json({message: "proveedor Actualizado"})
         }
     });
     
 };
 
 
-const deleteFarm = async (req, res) =>{
+const deleteProvide = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const sql = `DELETE FROM proveedor WHERE id = ${id}`;
@@ -92,17 +92,17 @@ const deleteFarm = async (req, res) =>{
             res.send(error);
         }
         else{
-            res.send(`proveedor con ${id} eliminada`)
+            res.send(`proveedor con ${id} eliminado`)
         }
     });
     
 };
 
 module.exports = {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getProvide,
+    getOneProvide,
+    addProvide,
+    updateProvide,
+    deleteProvide
 
 }
