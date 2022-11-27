@@ -2,7 +2,15 @@ import { getConnection } from "../database/database";
 
 const getFarm = async (req, res) =>{
     const connection = await getConnection();
-    const sql = 'SELECT * FROM fincas';
+    let sql;
+    if(req.query.ciudad && req.query.departamento){
+        const ciudad = req.query.ciudad;
+        const departamento = req.query.departamento;
+        sql = `SELECT * , c.nombre as Ciudad , d.nombre as Departamento  FROM  fincas f INNER JOIN ciudades c ON f.ciudad = c.id INNER JOIN  departamento d ON c.departamento = d.id where c.id = ${ciudad} and d.id = ${departamento} `; 
+    }
+    else{
+        sql = 'SELECT * , c.nombre as Ciudad , d.nombre as Departamento  FROM  fincas f INNER JOIN ciudades c ON f.ciudad = c.id INNER JOIN  departamento d ON c.departamento = d.id';
+    }
     await connection.query(sql, (error, results)=>{
         if(error){
             res.status(500);

@@ -31,6 +31,10 @@ const app = express();
 app.set("port", 4000);
 
 //Middlewares
+var cors = require('cors')
+
+app.use(cors()) // Use this after the variable declaration
+
 app.use(morgan("dev"));
 app.use(express.json());
 
