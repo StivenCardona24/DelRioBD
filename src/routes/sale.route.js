@@ -2,44 +2,44 @@ import {Router } from "express";
 const { check } = require('express-validator');
 
 const {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getVenta,
+    getOneVenta,
+    addVenta,
+    updateVenta,
+    deleteVenta
 
 } = require ("../controllers/sale.controller")
 
 const router = Router();
 
-router.get("/", getFarm);
+router.get("/", getVenta);
 
 router.get("/:num_factura", [
     check('num_factura', 'No es un num_factura válnum_facturao').isNumeric(),
-], getOneFarm);
+], getOneVenta);
 
 router.post("/", [
 
     check('tipoEntrega', 'La tipoEntrega es obligatoria').isNumeric(),
     check('valor', 'La valor es obligatoria').isNumeric(),
-    check('estado_entrega', 'El estado_entrega es obligatorio').isNumeric(),
-    check('cliente', 'El tipo es obligatorio').isNumeric(),
+    check('estado_entrega', 'El estado de entrega es obligatorio').isNumeric(),
+    check('cliente', 'El cliente  es obligatorio').isNumeric(),
     
 
-],addFarm);
+],addVenta);
 
 router.put("/:num_factura",  [
-    check('num_factura', 'No es un num_factura válnum_facturao').isNumeric(),
+    check('num_factura', 'No es un numero de factura ').isNumeric(),
     check('tipoEntrega', 'La tipoEntrega es obligatoria').isNumeric(),
     check('valor', 'La valor es obligatoria').isNumeric(),
-    check('estado_entrega', 'El estado_entrega es obligatorio').isNumeric(),
-    check('cliente', 'El tipo es obligatorio').isNumeric(),
+    check('estado_entrega', 'El estado de entrega es obligatorio').isNumeric(),
+    check('cliente', 'El cliente es obligatorio').isNumeric(),
  
-],updateFarm);
+],updateVenta);
 
 router.delete("/:num_factura",[
-    check('num_factura', 'No es un num_factura válnum_facturao').isNumeric(),
-], deleteFarm);
+    check('num_factura', 'No es un numero de factura válnum_facturao').isNumeric(),
+], deleteVenta);
 
 
 export default router;

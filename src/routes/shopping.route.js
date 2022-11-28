@@ -2,36 +2,46 @@ import {Router } from "express";
 const { check } = require('express-validator');
 
 const {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getShooping,
+    getOneShooping,
+    addShooping,
+    updateShooping,
+    deleteShooping
+
 
 } = require ("../controllers/shopping.controller")
 
 const router = Router();
 
-router.get("/", getFarm);
+router.get("/", getShooping);
 
 router.get("/:num_compra", [
-    check('num_compra', 'No es un num_compra válnum_comprao').isNumeric(),
-], getOneFarm);
+    check('num_compra', 'No es un numero de  compra valido').isNumeric(),
+
+], getOneShooping);
 
 router.post("/", [
-    check('estado_compra', 'El estado_compra es obligatorio').not().isEmpty(),
+    check('total', 'El total es obligatorio').not().isEmpty(),
+    check('id_finca', 'El id finca es obligatorio').not().isEmpty(),
+    
     
 
-],addFarm);
+],addShooping);
 
 router.put("/:num_compra",  [
-    check('num_compra', 'No es un num_compra válnum_comprao').isNumeric(),
+    check('num_compra', 'No es un num_compra valido').isNumeric(),
+    check('total', 'El total es obligatorio').not().isEmpty(),
+    check('id_finca', 'El id_finca es obligatorio').not().isEmpty(),
+    
 
-],updateFarm);
+    
+
+
+],updateShooping);
 
 router.delete("/:num_compra",[
-    check('num_compra', 'No es un num_compra válnum_comprao').isNumeric(),
-], deleteFarm);
+    check('num_compra', 'No es un num de compra valido').isNumeric(),
+], deleteShooping);
 
 
 export default router;

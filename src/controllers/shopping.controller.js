@@ -1,6 +1,6 @@
 import { getConnection } from "../database/database";
 
-const getFarm = async (req, res) =>{
+const getShooping = async (req, res) =>{
     const connection = await getConnection();
     const sql = 'SELECT * FROM compra';
     await connection.query(sql, (error, results)=>{
@@ -17,7 +17,7 @@ const getFarm = async (req, res) =>{
     });
     
 };
-const getOneFarm = async (req, res) =>{
+const getOneShooping = async (req, res) =>{
     const connection = await getConnection();
     const { num_compra } = req.params;
     const sql = `SELECT * FROM compra WHERE num_compra = ${num_compra}`;
@@ -30,22 +30,21 @@ const getOneFarm = async (req, res) =>{
             res.status(200).json(result);
         }
         else{
-            res.send(`No hay una compra con el num_compra ${num_compra}`)
+            res.send(`No hay una compra con el numero de  compra ${num_compra}`)
         }
     });
     
 };
 
-const addFarm = async (req, res) =>{
+const addShooping = async (req, res) =>{
     const connection = await getConnection();
-    const {estado_compra } = req.body;
+    const {total, id_finca } = req.body;
 
-    //const sql = `INSERT INTO compra (estado_compra) VALUES ( "${estado_compra}" )`;
     const sql = "INSERT INTO compra SET ?";
-    const farm = {
-        estado_compra
+    const Shooping = {
+        total, id_finca
     }
-    await connection.query(sql,farm, (error, results)=>{
+    await connection.query(sql,Shooping, (error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
@@ -58,18 +57,17 @@ const addFarm = async (req, res) =>{
 };
 
 
-const updateFarm = async (req, res) =>{
+const updateShooping = async (req, res) =>{
     const connection = await getConnection();
     const { num_compra } = req.params;
-    const {estado_compra } = req.body;
+    const {total, id_finca } = req.body;
 
-    const farm = {
-        estado_compra
+    const Shooping = {
+        total, id_finca
     }
-    //const sql = `UPDATE compra SET estado_compra ="${estado_compra}" WHERE num_compra = ${num_compra}`;
     const sql = "UPDATE compra SET ? WHERE num_compra = ?"
 
-    await connection.query(sql, [farm, num_compra] ,(error, results)=>{
+    await connection.query(sql, [Shooping, num_compra] ,(error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
@@ -82,7 +80,7 @@ const updateFarm = async (req, res) =>{
 };
 
 
-const deleteFarm = async (req, res) =>{
+const deleteShooping = async (req, res) =>{
     const connection = await getConnection();
     const { num_compra } = req.params;
     const sql = `DELETE FROM compra WHERE num_compra = ${num_compra}`;
@@ -99,10 +97,10 @@ const deleteFarm = async (req, res) =>{
 };
 
 module.exports = {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getShooping,
+    getOneShooping,
+    addShooping,
+    updateShooping,
+    deleteShooping
 
 }

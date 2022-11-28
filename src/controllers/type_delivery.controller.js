@@ -1,6 +1,6 @@
 import { getConnection } from "../database/database";
 
-const getFarm = async (req, res) =>{
+const getType_deliery = async (req, res) =>{
     const connection = await getConnection();
     const sql = 'SELECT * FROM tipo_entrega';
     await connection.query(sql, (error, results)=>{
@@ -17,7 +17,7 @@ const getFarm = async (req, res) =>{
     });
     
 };
-const getOneFarm = async (req, res) =>{
+const getOneType_deliery = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const sql = `SELECT * FROM tipo_entrega WHERE id = ${id}`;
@@ -30,59 +30,59 @@ const getOneFarm = async (req, res) =>{
             res.status(200).json(result);
         }
         else{
-            res.send(`No hay una tipo_entrega con el id ${id}`)
+            res.send(`No hay una tipo de entrega con el id ${id}`)
         }
     });
     
 };
 
-const addFarm = async (req, res) =>{
+const addType_deliery = async (req, res) =>{
     const connection = await getConnection();
     const {nombre } = req.body;
 
     //const sql = `INSERT INTO tipo_entrega (nombre) VALUES ( "${nombre}")`;
     const sql = "INSERT INTO tipo_entrega SET ?";
-    const farm = {
+    const type_deliery = {
         nombre
     }
-    await connection.query(sql,farm, (error, results)=>{
+    await connection.query(sql,type_deliery, (error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
         }
         else{
-            res.status(200).json({message: "tipo_entrega creada"})
+            res.status(200).json({message: "tipo de entrega creada"})
         }
     });
     
 };
 
 
-const updateFarm = async (req, res) =>{
+const updateType_deliery = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const {nombre } = req.body;
 
-    const farm = {
+    const type_deliery = {
         nombre
     }
     //const sql = `UPDATE tipo_entrega SET nombre ="${nombre}"`;
     const sql = "UPDATE tipo_entrega SET ? WHERE id = ?"
 
-    await connection.query(sql, [farm, id] ,(error, results)=>{
+    await connection.query(sql, [type_deliery, id] ,(error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
         }
         else{
-            res.status(200).json({message: "tipo_entrega Actualizada"})
+            res.status(200).json({message: "tipo de entrega Actualizada"})
         }
     });
     
 };
 
 
-const deleteFarm = async (req, res) =>{
+const deleteType_deliery = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const sql = `DELETE FROM tipo_entrega WHERE id = ${id}`;
@@ -92,17 +92,17 @@ const deleteFarm = async (req, res) =>{
             res.send(error);
         }
         else{
-            res.send(`tipo_entrega con ${id} eliminada`)
+            res.send(`tipo de entrega con ${id} eliminada`)
         }
     });
     
 };
 
 module.exports = {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getType_deliery,
+    getOneType_deliery,
+    addType_deliery,
+    updateType_deliery,
+    deleteType_deliery
 
 }

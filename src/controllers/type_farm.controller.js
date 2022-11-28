@@ -1,6 +1,6 @@
 import { getConnection } from "../database/database";
 
-const getFarm = async (req, res) =>{
+const getType_farm = async (req, res) =>{
     const connection = await getConnection();
     const sql = 'SELECT * FROM tipo_finca';
     await connection.query(sql, (error, results)=>{
@@ -17,7 +17,7 @@ const getFarm = async (req, res) =>{
     });
     
 };
-const getOneFarm = async (req, res) =>{
+const getOneType_farm = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const sql = `SELECT * FROM tipo_finca WHERE id = ${id}`;
@@ -36,16 +36,16 @@ const getOneFarm = async (req, res) =>{
     
 };
 
-const addFarm = async (req, res) =>{
+const addType_farm = async (req, res) =>{
     const connection = await getConnection();
     const {nombre } = req.body;
 
     //const sql = `INSERT INTO tipo_finca (nombre) VALUES ( "${nombre}" )`;
     const sql = "INSERT INTO tipo_finca SET ?";
-    const farm = {
+    const type_farm = {
         nombre
     }
-    await connection.query(sql,farm, (error, results)=>{
+    await connection.query(sql,type_farm, (error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
@@ -58,31 +58,30 @@ const addFarm = async (req, res) =>{
 };
 
 
-const updateFarm = async (req, res) =>{
+const updateType_farm = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const {nombre } = req.body;
 
-    const farm = {
+    const type_farm = {
         nombre
     }
-    //const sql = `UPDATE tipo_finca SET nombre ="${nombre}"`;
     const sql = "UPDATE tipo_finca SET ? WHERE id = ?"
 
-    await connection.query(sql, [farm, id] ,(error, results)=>{
+    await connection.query(sql, [type_farm, id] ,(error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
         }
         else{
-            res.status(200).json({message: "tipo_finca Actualizada"})
+            res.status(200).json({message: "tipo de finca Actualizada"})
         }
     });
     
 };
 
 
-const deleteFarm = async (req, res) =>{
+const deleteType_farm = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const sql = `DELETE FROM tipo_finca WHERE id = ${id}`;
@@ -92,17 +91,17 @@ const deleteFarm = async (req, res) =>{
             res.send(error);
         }
         else{
-            res.send(`tipo_finca con ${id} eliminada`)
+            res.send(`tipo de finca con ${id} eliminada`)
         }
     });
     
 };
 
 module.exports = {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getType_farm,
+    getOneType_farm,
+    addType_farm,
+    updateType_farm,
+    deleteType_farm
 
 }

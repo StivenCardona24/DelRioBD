@@ -1,23 +1,21 @@
 import { getConnection } from "../database/database";
 
-const getFarm = async (req, res) =>{
+const getShopping_detail = async (req, res) =>{
     const connection = await getConnection();
     const sql = 'SELECT * FROM detalle_compra';
     await connection.query(sql, (error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
-        };
-        if(results.length > 0){
-            res.status(200).json(results);
         }
         else{
-            res.send("Not results")
+            res.status(200).json(results);
         }
+        
     });
     
 };
-const getOneFarm = async (req, res) =>{
+const getOneShopping_detail = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const sql = `SELECT * FROM detalle_compra WHERE id = ${id}`;
@@ -30,60 +28,57 @@ const getOneFarm = async (req, res) =>{
             res.status(200).json(result);
         }
         else{
-            res.send(`No hay una detalle_compra con el id ${id}`)
+            res.send(`No hay una detalle de compra con el id ${id}`)
         }
     });
     
 };
 
-const addFarm = async (req, res) =>{
+const addShopping_detail = async (req, res) =>{
     const connection = await getConnection();
-    const {detalle, valor, cantidad, compra, proveedor } = req.body;
+    const {valor, cantidad, compra, producto } = req.body;
 
-    //const sql = `INSERT INTO detalle_compra (detalle, valor, cantidad, compra, proveedor) VALUES ( "${detalle}", ${valor}, "${cantidad}", "${compra}", ${proveedor} )`;
     const sql = "INSERT INTO detalle_compra SET ?";
-    const farm = {
-        detalle, valor, cantidad, compra, proveedor
+    const shopping_detail = {
+        valor, cantidad, compra, producto
     }
-    await connection.query(sql,farm, (error, results)=>{
+    await connection.query(sql,shopping_detail, (error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
         }
         else{
-            res.status(200).json({message: "detalle_compra creada"})
+            res.status(200).json({message: "detalle compra creada"})
         }
     });
     
 };
 
 
-const updateFarm = async (req, res) =>{
+const updateShopping_detail = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
-    const {detalle, valor, cantidad, compra, proveedor } = req.body;
+    const {valor, cantidad, compra, producto } = req.body;
 
-    const farm = {
-        detalle, valor, cantidad, compra, proveedor
+    const shopping_detail = {
+        valor, cantidad, compra, producto
     }
-    //const sql = `UPDATE detalle_compra SET detalle ="${detalle}", valor = ${valor}, cantidad = "${cantidad}",
-       //         compra = "${compra}", proveedor = ${proveedor} WHERE id = ${id}`;
     const sql = "UPDATE detalle_compra SET ? WHERE id = ?"
 
-    await connection.query(sql, [farm, id] ,(error, results)=>{
+    await connection.query(sql, [shopping_detail, id] ,(error, results)=>{
         if(error){
             res.status(500);
             res.send(error);
         }
         else{
-            res.status(200).json({message: "detalle_compra Actualizada"})
+            res.status(200).json({message: "detalle compra Actualizada"})
         }
     });
     
 };
 
 
-const deleteFarm = async (req, res) =>{
+const deleteShopping_detail = async (req, res) =>{
     const connection = await getConnection();
     const { id } = req.params;
     const sql = `DELETE FROM detalle_compra WHERE id = ${id}`;
@@ -100,10 +95,10 @@ const deleteFarm = async (req, res) =>{
 };
 
 module.exports = {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+    getShopping_detail,
+    getOneShopping_detail,
+    addShopping_detail,
+    updateShopping_detail,
+    deleteShopping_detail
 
 }

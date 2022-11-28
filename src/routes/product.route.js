@@ -19,23 +19,26 @@ router.get("/:id", [
 ], getOneProduct);
 
 router.post("/", [
-    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+   
     check('precio', 'La precio es obligatoria').isDecimal(),
     check('catidad', 'La catidad es obligatoria').not().isEmpty(),
     check('decripcion', 'El decripcion es obligatorio').not().isEmpty(),
     check('tipo', 'El tipo es obligatorio').isNumeric(),
+    check('finca', 'la finca es obligatorio').isNumeric(),
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
  
 
 ],addProduct);
 
 router.put("/:id",  [
     check('id', 'No es un ID válido').isNumeric(),
-    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-    check('precio', 'La precio es obligatoria').isNumeric(),
+    check('precio', 'La precio es obligatoria').isDecimal(),
     check('catidad', 'La catidad es obligatoria').not().isEmpty(),
     check('decripcion', 'El decripcion es obligatorio').not().isEmpty(),
     check('tipo', 'El tipo es obligatorio').isNumeric(),
-    
+    check('finca', 'la finca es obligatorio').isNumeric(),
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+ 
 
 ],updateProduct);
 

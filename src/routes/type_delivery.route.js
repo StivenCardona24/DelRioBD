@@ -2,36 +2,36 @@ import {Router } from "express";
 const { check } = require('express-validator');
 
 const {
-    getFarm,
-    getOneFarm,
-    addFarm,
-    updateFarm,
-    deleteFarm
+     getType_deliery,
+    getOneType_deliery,
+    addType_deliery,
+    updateType_deliery,
+    deleteType_deliery
 
 } = require ("../controllers/type_delivery.controller")
 
 const router = Router();
 
-router.get("/", getFarm);
+router.get("/", getType_deliery);
 
 router.get("/:id", [
     check('id', 'No es un ID válido').isNumeric(),
-], getOneFarm);
+], getOneType_deliery);
 
 router.post("/", [
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
  
-],addFarm);
+],addType_deliery);
 
 router.put("/:id",  [
     check('id', 'No es un ID válido').isNumeric(),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
 
-],updateFarm);
+],updateType_deliery);
 
 router.delete("/:id",[
     check('id', 'No es un ID válido').isNumeric(),
-], deleteFarm);
+], deleteType_deliery);
 
 
 export default router;
