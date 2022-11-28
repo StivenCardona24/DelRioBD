@@ -38,12 +38,12 @@ const getOneEmployee = async (req, res) =>{
 
 const addEmployee = async (req, res) =>{
     const connection = await getConnection();
-    const {primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina } = req.body;
+    const {cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina } = req.body;
 
     //const sql = `INSERT INTO empleado (primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina, finca) VALUES ( "${primer_nombre}", ${segundo_nombre}, "${primer_apellido}", "${segundo_apelido}", "${estudios}", "${sueldo}", "${cargo}", "${fecha_nacimiento}", "${dependencia}", "${oficina}", "${finca}" )`;
     const sql = "INSERT INTO empleado SET ?";
     const employee = {
-        primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina
+        cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina
     }
     await connection.query(sql,employee, (error, results)=>{
         if(error){
@@ -61,10 +61,10 @@ const addEmployee = async (req, res) =>{
 const updateEmployee = async (req, res) =>{
     const connection = await getConnection();
     const { cedula } = req.params;
-    const {primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina } = req.body;
+    const {primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina } = req.body;
 
     const employee = {
-        primer_nombre, segundo_nombre, primer_apellido, segundo_apelido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina
+        primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, estudios, sueldo, cargo, fecha_nacimiento, dependencia, oficina
     }
     const sql = "UPDATE empleado SET ? WHERE cedula = ?"
 

@@ -3,14 +3,36 @@ import { getConnection } from "../database/database";
 const getFarm = async (req, res) =>{
     const connection = await getConnection();
     let sql;
-    if(req.query.ciudad && req.query.departamento){
-        const ciudad = req.query.ciudad;
+    let filters = "";
+    if(req.query.departamento){
         const departamento = req.query.departamento;
-        sql = `SELECT * , c.nombre as Ciudad , d.nombre as Departamento  FROM  fincas f INNER JOIN ciudades c ON f.ciudad = c.id INNER JOIN  departamento d ON c.departamento = d.id where c.id = ${ciudad} and d.id = ${departamento} `; 
+            filters += `where d.id = ${departamento} `
     }
-    else{
-        sql = 'SELECT * , c.nombre as Ciudad , d.nombre as Departamento  FROM  fincas f INNER JOIN ciudades c ON f.ciudad = c.id INNER JOIN  departamento d ON c.departamento = d.id';
+
+    if(req.query.ciudad){
+        const ciudad = req.query.ciudad;
+        if(filters.length > 0){
+            filters += `and c.id = ${ciudad} `
+        }
+        else{
+            filters += `where c.id = ${ciudad} `
+        }
+        
+
     }
+    
+    if(req.query.tipo_finca){
+        const tipoFinca = req.query.tipo_finca;
+        if(filters.length > 0){
+            filters += `and tf.id = ${tipoFinca} `
+        }
+        else{
+            filters += `where tf.id = ${tipoFinca} `
+        }
+    }
+
+    sql = `SELECT f.* , c.nombre as Ciudad , d.nombre as Departamento, tf.nombre as tipo, o.nombre as Oficina  FROM  fincas f INNER JOIN ciudades c ON f.ciudad = c.id INNER JOIN  departamento d ON c.departamento = d.id INNER JOIN tipo_finca tf ON f.tipo_finca = tf.id INNER JOIN oficina o ON f.oficina = o.id ${filters} `;
+    console.log(sql)    
     await connection.query(sql, (error, results)=>{
         if(error){
             res.status(500);

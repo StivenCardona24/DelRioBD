@@ -19,10 +19,11 @@ router.get("/:cedula", [
 ], getOneEmployee);
 
 router.post("/", [
+    check('cedula', 'La cedula es obligatoria').not().isEmpty(),
     check('primer_nombre', 'El primer_nombre es obligatorio').not().isEmpty(),
     check('segundo_nombre', 'La segundo_nombre es obligatoria').not().isEmpty(),
     check('primer_apellido', 'La primer_apellido es obligatoria').not().isEmpty(),
-    check('segundo_apelido', 'El segundo_apelido es obligatorio').not().isEmpty(),
+    check('segundo_apellido', 'El segundo apellido es obligatorio').not().isEmpty(),
     check('estudios', 'El tipo es obligatorio').not().isEmpty(),
     check('sueldo', 'La sueldo es obligatoria').isNumeric(),
     check('cargo', 'La cargo es obligatoria').isNumeric(),
@@ -36,7 +37,7 @@ router.put("/:cedula",  [
     check('primer_nombre', 'El primer_nombre es obligatorio').not().isEmpty(),
     check('segundo_nombre', 'La segundo_nombre es obligatoria').not().isEmpty(),
     check('primer_apellido', 'La primer_apellido es obligatoria').not().isEmpty(),
-    check('segundo_apelido', 'El segundo_apelido es obligatorio').not().isEmpty(),
+    check('segundo_apellido', 'El segundo_apelido es obligatorio').not().isEmpty(),
     check('estudios', 'El tipo es obligatorio').not().isEmpty(),
     check('sueldo', 'La sueldo es obligatoria').isNumeric(),
     check('cargo', 'La cargo es obligatoria').isNumeric(),
