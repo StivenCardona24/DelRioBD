@@ -37,13 +37,11 @@ const getFarm = async (req, res) =>{
         if(error){
             res.status(500);
             res.send(error);
-        };
-        if(results.length > 0){
-            res.status(200).json(results);
         }
         else{
-            res.send("Not results")
+            res.status(200).json(results);
         }
+        
     });
     
 };
