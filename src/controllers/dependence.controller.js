@@ -2,7 +2,7 @@ import { getConnection } from "../database/database";
 
 const getDependence = async (req, res) =>{
     const connection = await getConnection();
-    const sql = 'SELECT * FROM dependencia';
+    const sql = 'SELECT d.nombre, COUNT(e.cedula) as empleados FROM empleado e INNER JOIN dependencia d on e.dependencia = d.id GROUP BY d.nombre;  ';
     await connection.query(sql, (error, results)=>{
         if(error){
             res.status(500);
