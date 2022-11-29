@@ -1,4 +1,5 @@
-
+import {Router } from "express";
+const { check } = require('express-validator');
 
 
 const {
@@ -7,6 +8,7 @@ const {
 } = require ("../controllers/login.controller")
 
 
+const router = Router();
 
 
 router.post("/", [
@@ -17,3 +19,5 @@ router.post("/", [
   
 
 ],getValidator);
+
+export default router;
