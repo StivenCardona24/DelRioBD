@@ -23,6 +23,8 @@ import detalle_ventaRoutes from "./routes/sale_detail.route";
 import ventaRoutes from "./routes/sale.route";
 import compraRoutes from "./routes/shopping.route";
 import tipo_productoRoutes from "./routes/type_product.route";
+import loginRoute from "./routes/login.route";
+
 
 
 const app = express();
@@ -63,5 +65,5 @@ app.use("/empleado", empleadoRoutes);
 app.use("/venta", ventaRoutes);
 app.use("/compra", compraRoutes);
 app.use("/tipo_producto", tipo_productoRoutes);
-
+app.use("/login", loginRoute);
 export default app;
